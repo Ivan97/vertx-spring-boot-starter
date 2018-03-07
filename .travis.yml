@@ -1,0 +1,47 @@
+language: java
+jdk:
+  - oraclejdk8
+notification:
+  email:
+    recipients:
+      - yangkizhang@gmail.com
+    on_success: always
+    on_failure: always
+
+before_script:
+  - echo "MAVEN_OPTS='-Xms1024m -Xmx3072m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m'" > ~/.mavenrc
+
+before_install:
+  - pip install --user codecov
+
+after_success:
+  - mvn clean test jacoco:report coveralls:report
+  - codecov
+
+branches:
+  only:
+    - master
+
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "ae5rpG9HneAjTQ/DgmKtmgSLkIC5DQOENrum18TH8uKaRwMS/cwY5a/YJ1JV/av9CQVR62uAtNX9EwS226TCb+z4Bw1DSfa+q4OtIqWns8vqYRioWTcDDMAYozPtzdjbIGwjwIcp5OG2FK/YwMeAmRwyNsnHLg+/g7nAwekRvrdGh66Hu8zwCmF3bPmLrLEyhZJZxiCS8NzFMK615l8MSm/Oj1ngNmUkGaZOi30ghxyIQuwnGzyPVnVlYMws3cIYeTQDKLczGyMu64wXFnaNyUHGIu8Wt9/1oH8oB9wNDU46e5XAVcyARN+m5+V2oeM5iNwtBfF3C71hiAlKng2edKmF+FqJ+BRxe4eKgSSSBYM2pfF7qSID9LkU8sAFN1z3UGPETAz7HW0+3N78/moD9Er+cFlRc7fdDCg3LRGPLImX1IfNSw4PsjEdf8etcPCnQIFgG1qpD+dTnnBhzPBC2NhwfAooVA2xYUHq/NtGIxYXfBz6dGUdVMDVwo6QiPla11fyLW1sOhfK5mGWea5TfnlAnarqUEkBm2XyYarxsz73MkIND+a64JKWAPdlTyBGQWmvyefZCU2qZqLb+nrrERyzf9ZL1JbG8lKE1fdifG9p21Ief/2iFOVt4CcMkJsiWbMDZCVSb5KOoNO3SqO2bzQOHx7JHf/K9OScSUCj1Q4="
+   - "MAVEN_OPTS=-Xms1024m -Xmx3072m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=384m"
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "Ivan97/vertx-spring-boot-starter"
+      description: "vertx-spring-boot-starter"
+    notification_email: yangkizhang@gmail.com
+    build_command_prepend: "mvn clean"
+    build_command: "mvn -DskipTests=true package"
+    branch_pattern: master
+
+cache:
+  directories:
+  - $HOME/.m2
