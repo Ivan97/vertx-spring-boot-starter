@@ -7,9 +7,12 @@ import io.vertx.core.shareddata.SharedData;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -18,15 +21,20 @@ import org.springframework.context.annotation.Configuration;
  * @author Ivan97
  */
 @Configuration
+@ComponentScan
+@EnableConfigurationProperties(VertxProperties.class)
 public class VertxAutoConfiguration implements BeanFactoryAware {
 
   private BeanFactory beanFactory;
+
+  @Autowired
+  private VertxProperties vertxProperties;
 
   @Bean
   @ConditionalOnMissingBean
   public Vertx vertx() {
     ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
-    Vertx vertx = Vertx.vertx();
+    Vertx vertx = Vertx.vertx(vertxProperties.getVertxOptions());
     configurableBeanFactory.registerSingleton("vertx", vertx);
     return vertx;
   }

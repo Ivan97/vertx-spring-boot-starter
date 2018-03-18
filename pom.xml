@@ -4,12 +4,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>tech.iooo.coco</groupId>
-    <artifactId>iooo-distribution-config</artifactId>
-    <version>1.0.0.RELEASE</version>
+    <groupId>tech.iooo.boot</groupId>
+    <artifactId>iooo-boot-parent</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>tech.iooo.boot</groupId>
   <artifactId>vertx-spring-boot-starter</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
@@ -26,7 +25,7 @@
   </licenses>
 
   <scm>
-    <url>http://spring4all.com</url>
+    <url>https://www.iooo.tech</url>
     <connection>git@github.com:Ivan97/vertx-spring-boot-starter.git</connection>
     <developerConnection>https://github.com/Ivan97/vertx-spring-boot-starter</developerConnection>
   </scm>
@@ -54,8 +53,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <!-- dependencies -->
-    <spring-boot.version>1.5.10.RELEASE</spring-boot.version>
-    <vertx.version>3.5.1</vertx.version>
   </properties>
 
   <dependencyManagement>
@@ -109,14 +106,22 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <showWarnings>true</showWarnings>
-        </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>oss</id>
+      <name>oss</name>
+      <url>https://oss.sonatype.org/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 </project>
