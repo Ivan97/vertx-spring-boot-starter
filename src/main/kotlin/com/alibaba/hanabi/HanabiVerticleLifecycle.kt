@@ -84,7 +84,6 @@ class HanabiVerticleLifecycle(val vertx: Vertx) : SmartLifecycle {
         this.running = true
     }
 
-    @Synchronized
     override fun stop() {
         this.running = false
     }
