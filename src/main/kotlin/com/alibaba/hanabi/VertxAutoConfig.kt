@@ -1,5 +1,6 @@
 package com.alibaba.hanabi
 
+import io.vertx.core.DeploymentOptions
 import io.vertx.core.Vertx
 import io.vertx.core.eventbus.EventBus
 import io.vertx.core.file.FileSystem
@@ -30,5 +31,10 @@ class VertxAutoConfig {
     @Bean
     fun fileSystem(vertx: Vertx): FileSystem {
         return vertx.fileSystem()
+    }
+
+    @Bean(VertxConstants.DEFAULT_DEPLOYMENT_OPTIONS)
+    fun defaultDeploymentOptions(): DeploymentOptions {
+        return DeploymentOptions()
     }
 }

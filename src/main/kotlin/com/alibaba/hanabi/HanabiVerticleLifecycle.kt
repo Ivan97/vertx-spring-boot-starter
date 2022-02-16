@@ -69,7 +69,7 @@ class HanabiVerticleLifecycle(val vertx: Vertx) : SmartLifecycle {
                 if (res.succeeded()) {
                     val className: String = ClassUtils.getUserClass(verticleClass).simpleName
                     logger.info(
-                        "deployed verticle [{}] with deploymentOption [{}],id [{}].",
+                        "Deployed verticle [{}] with deploymentOption [{}],id [{}].",
                         className,
                         optionName,
                         res.result()
@@ -77,7 +77,7 @@ class HanabiVerticleLifecycle(val vertx: Vertx) : SmartLifecycle {
                     HanabiVerticleHolder.INACTIVE_VERTICLES.row(verticleClass.name).remove("")
                     HanabiVerticleHolder.ACTIVE_VERTICLES.row(verticleClass.name)[res.result()] = verticle
                 } else {
-                    logger.error("error with deploy verticle " + verticleClass.name, res.cause())
+                    logger.error("Error occurred when deploying verticle " + verticleClass.name, res.cause())
                 }
             }
         }

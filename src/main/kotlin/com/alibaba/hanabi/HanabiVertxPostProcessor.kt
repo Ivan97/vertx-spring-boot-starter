@@ -24,7 +24,7 @@ class HanabiVertxPostProcessor : BeanPostProcessor, ApplicationContextAware {
             if (!bean.verticleFactories().contains(factory)) {
                 bean.registerVerticleFactory(factory)
                 if (logger.isDebugEnabled) {
-                    logger.debug { "VerticleFactory register" }
+                    logger.debug { "VerticleFactory registered" }
                 }
             }
         }
