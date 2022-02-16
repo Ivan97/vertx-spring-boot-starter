@@ -19,11 +19,11 @@ object CustomizedBeanHolder {
 
     fun register(beanName: String, obj: Any) {
         if (beanHolder.containsRow(beanName)) {
-            throw Exception("Duplicated bean $beanName register action")
+            throw Exception("Duplicated verticle bean $beanName register action")
         } else {
             beanHolder.put(beanName, obj.javaClass, obj)
             if (logger.isDebugEnabled) {
-                logger.debug { "Customized bean registered.Type ${obj.javaClass.name} with name $beanName." }
+                logger.debug { "Customized verticle bean registered.Type ${obj.javaClass.name} with name $beanName." }
             }
         }
     }
