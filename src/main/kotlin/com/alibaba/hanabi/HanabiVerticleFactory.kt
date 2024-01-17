@@ -48,7 +48,7 @@ class HanabiVerticleFactory : VerticleFactory, ApplicationContextAware {
         val verticle = HanabiVerticleHolder.INACTIVE_VERTICLES.rowMap()[clazz]?.values?.iterator()?.next()
         verticle?.apply {
             promise?.complete(Callable<Verticle> {
-                register(verticle)
+                register(this)
                 ProxyUtil.proxy(verticle, VerticleAspect::class.java)
             })
         }

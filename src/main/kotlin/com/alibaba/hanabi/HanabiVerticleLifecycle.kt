@@ -19,10 +19,10 @@ import java.util.*
 @Component
 class HanabiVerticleLifecycle(val vertx: Vertx) : SmartLifecycle {
 
-    val logger = KotlinLogging.logger {}
+    private val logger = KotlinLogging.logger {}
 
     companion object {
-        const val DEFAULT_DEPLOYMENT_OPTION_SUFFIX = "@VerticleDeploymentOption"
+        private const val DEFAULT_DEPLOYMENT_OPTION_SUFFIX = "@VerticleDeploymentOption"
     }
 
     private var running: Boolean = false
