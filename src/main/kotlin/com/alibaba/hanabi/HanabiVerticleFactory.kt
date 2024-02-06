@@ -3,6 +3,7 @@ package com.alibaba.hanabi
 import cn.hutool.aop.ProxyUtil
 import cn.hutool.aop.aspects.SimpleAspect
 import cn.hutool.core.util.IdUtil
+import cn.hutool.core.util.ObjUtil
 import io.vertx.core.Promise
 import io.vertx.core.Verticle
 import io.vertx.core.Vertx
@@ -49,7 +50,7 @@ class HanabiVerticleFactory : VerticleFactory, ApplicationContextAware {
         verticle?.apply {
             promise?.complete(Callable<Verticle> {
                 register(this)
-                ProxyUtil.proxy(verticle, VerticleAspect::class.java)
+                ObjUtil.clone(CloneableVerticle(this))
             })
         }
     }
@@ -61,8 +62,6 @@ class HanabiVerticleFactory : VerticleFactory, ApplicationContextAware {
         beanFactory.registerBeanDefinition(beanName, builder.beanDefinition)
         CustomizedBeanHolder.register(beanName, verticle)
     }
-
-    class VerticleAspect : SimpleAspect()
 
     override fun setApplicationContext(applicationContext: ApplicationContext) {
         this.applicationContext = applicationContext as AbstractApplicationContext

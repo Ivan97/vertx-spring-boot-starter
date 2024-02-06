@@ -8,6 +8,8 @@ import io.vertx.core.Verticle
 import io.vertx.core.Vertx
 import mu.KotlinLogging
 import org.springframework.context.SmartLifecycle
+import org.springframework.core.Ordered
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import org.springframework.util.ClassUtils
 import java.util.*
@@ -17,6 +19,7 @@ import java.util.*
  * @date 2022/2/14 1:05 PM
  */
 @Component
+@Order(Ordered.LOWEST_PRECEDENCE)
 class HanabiVerticleLifecycle(val vertx: Vertx) : SmartLifecycle {
 
     private val logger = KotlinLogging.logger {}
